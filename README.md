@@ -70,4 +70,113 @@ Las dimensiones del prototipo fueron de aproximadamente 40 cm × 20 cm × 22 cm,
 
 Es importante destacar que la base de la incubadora también fue construida en icopor, lo cual inicialmente facilitó la fabricación; sin embargo, durante las pruebas se evidenció que este material no soporta adecuadamente cargas mayores, presentando deformaciones que afectan la estabilidad del sistema de medición de peso. Por esta razón, se concluye que, para mejorar el desempeño estructural del prototipo, la base debería fabricarse con un material más rígido, como madera, acrílico o algún polímero de mayor resistencia, que garantice una mejor distribución de la carga y mayor precisión en las mediciones.
 
+´´´bash
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include "HX711.h"
+
+// OLED
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+// HX711
+#define DOUT  4
+#define CLK   5
+HX711 scale;
+
+// Botón
+#define BOTON_TARA 14
+
+
+float calibration_factor = -300;
+
+bool yaTarado = false;
+float peso_filtrado = 0;
+
+void setup() {
+  Serial.begin(115200);
+  Wire.begin(21, 22);
+
+  // OLED
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println("Error OLED");
+    while(true);
+  }
+
+  display.clearDisplay();
+  display.setTextColor(WHITE);
+
+  display.setTextSize(1);
+  display.setCursor(0, 20);
+  display.println("Iniciando...");
+  display.display();
+  delay(2000);
+
+  // HX711
+  scale.begin(DOUT, CLK);
+  scale.set_scale();
+  scale.tare();
+
+  pinMode(BOTON_TARA, INPUT_PULLUP);
+}
+
+void loop() {
+
+  // ----------- TARA -----------
+  if (digitalRead(BOTON_TARA) == LOW && !yaTarado) {
+    delay(200);
+    scale.tare(15);
+    peso_filtrado = 0;
+    yaTarado = true;
+
+    display.clearDisplay();
+    display.setTextSize(1);
+    display.setCursor(0, 25);
+    display.println("TARA aplicada");
+    display.display();
+
+    delay(500);
+  }
+
+  if (digitalRead(BOTON_TARA) == HIGH) {
+    yaTarado = false;
+  }
+
+  scale.set_scale(calibration_factor);
+
+  float peso = scale.get_units(10);
+
+
+  peso_filtrado = 0.7 * peso_filtrado + 0.3 * peso;
+
+
+  if (abs(peso_filtrado) < 2) peso_filtrado = 0;
+
+  Serial.print("Peso: ");
+  Serial.println(peso_filtrado);
+
+  // ----------- OLED -----------
+  display.clearDisplay();
+
+  display.setTextSize(1);
+  display.setCursor(0, 0);
+  display.println("Balanza incubadora");
+
+  display.setCursor(0, 15);
+  display.print("Peso:");
+
+  display.setTextSize(2);
+  display.setCursor(0, 30);
+  display.print(peso_filtrado, 1);
+  display.print(" g");
+
+  display.display();
+
+  delay(150);
+}
+´´´ 
+
+
 
