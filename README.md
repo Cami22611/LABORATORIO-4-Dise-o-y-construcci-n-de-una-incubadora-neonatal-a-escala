@@ -20,7 +20,7 @@ Un componente clave dentro del funcionamiento es el sistema de sensores, encarga
 
 El módulo de control, tal como se muestra en la imagen, integra diferentes indicadores y actuadores: displays para visualizar la temperatura, botones para ajustar los valores deseados, indicadores de potencia del sistema de calefacción y sistemas de alarma, encargadas de avisar cuando las variables se encuentran fuera de los rangos seguros, permitiendo una intervención oportuna.
 
-<img width="1200" height="1600" alt="image" src="https://github.com/user-attachments/assets/382d679f-5c01-4469-b8de-b81a2d7200f4" />
+<img width="320" height="360" alt="image" src="https://github.com/user-attachments/assets/382d679f-5c01-4469-b8de-b81a2d7200f4" />
 
 ## DESAROLLO DE LA PRÁCTICA
 ### 1. Diseño del circuito de medición de peso
