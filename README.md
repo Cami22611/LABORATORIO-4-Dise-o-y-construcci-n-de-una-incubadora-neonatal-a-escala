@@ -183,6 +183,25 @@ La lectura del peso se realiza mediante el módulo HX711, utilizando un promedio
 El valor del peso es mostrado en tiempo real en la pantalla OLED, junto con un encabezado identificador del sistema. La actualización constante de la pantalla permite al usuario monitorear de manera clara y continua las mediciones obtenidas.
 
 ### Programación del sistema de control de temperatura
+# COSTOS DEL SISTEMA DESARROLLADO
+
+| Componente                         | Cantidad | Costo unitario (COP) | Costo total (COP) |
+| ---------------------------------- | -------- | -------------------- | ----------------- |
+| Arduino / ESP32                    | 1        | 35.000               | 35.000            |
+| HX711                              | 1        | 7.000                | 7.000             |
+| Celda de carga 5 kg                | 1        | 11.000               | 11.000            |
+| Pantalla OLED                      | 1        | 20.000               | 20.000            |
+| Termistor NTC                      | 1        | 1.500                | 1.500             |
+| Relé                               | 2        | 8.000                | 16.000            |
+| Ventilador                         | 1        | 7.000                | 7.000             |
+| Bombillo                           | 1        | 5.000                | 5.000             |
+| LEDs                               | 3        | 500                  | 1.500             |
+| Metro cable UTP                    | 1        | 500                  | 500               |
+| Icopor                             | 1        | 15000                | 15000             |
+| Balso                              | 1        | 1600                 | 1600              |
+| Plástico                           | 1        | 15000                | 15000             |
+| Protoboard                         | 1        | 10000                | 10000             |
+| TOTAL                              | -        | -                    | 146.600           |
 
 
 
