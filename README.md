@@ -70,23 +70,24 @@ Las dimensiones del prototipo fueron de aproximadamente 40 cm × 20 cm × 22 cm,
 
 Es importante destacar que la base de la incubadora también fue construida en icopor, lo cual inicialmente facilitó la fabricación; sin embargo, durante las pruebas se evidenció que este material no soporta adecuadamente cargas mayores, presentando deformaciones que afectan la estabilidad del sistema de medición de peso. Por esta razón, se concluye que, para mejorar el desempeño estructural del prototipo, la base debería fabricarse con un material más rígido, como madera, acrílico o algún polímero de mayor resistencia, que garantice una mejor distribución de la carga y mayor precisión en las mediciones.
 
-´´´bash
+## IMPLEMENTACIÓN DEL SISTEMA
+
+### Programación del sistema de medición de peso
+
+```bash
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include "HX711.h"
 
-// OLED
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
-// HX711
 #define DOUT  4
 #define CLK   5
 HX711 scale;
 
-// Botón
 #define BOTON_TARA 14
 
 
@@ -99,7 +100,6 @@ void setup() {
   Serial.begin(115200);
   Wire.begin(21, 22);
 
-  // OLED
   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
     Serial.println("Error OLED");
     while(true);
@@ -114,7 +114,6 @@ void setup() {
   display.display();
   delay(2000);
 
-  // HX711
   scale.begin(DOUT, CLK);
   scale.set_scale();
   scale.tare();
@@ -124,7 +123,6 @@ void setup() {
 
 void loop() {
 
-  // ----------- TARA -----------
   if (digitalRead(BOTON_TARA) == LOW && !yaTarado) {
     delay(200);
     scale.tare(15);
@@ -157,7 +155,6 @@ void loop() {
   Serial.print("Peso: ");
   Serial.println(peso_filtrado);
 
-  // ----------- OLED -----------
   display.clearDisplay();
 
   display.setTextSize(1);
@@ -176,7 +173,18 @@ void loop() {
 
   delay(150);
 }
-´´´ 
+```
+El sistema de medición de peso fue implementado mediante una ESP32, integrando el módulo HX711, una pantalla OLED y un pulsador para la función de tara. En el programa se inicializan las librerías necesarias para la comunicación I2C con la pantalla y para la adquisición de datos del sensor de peso. Durante la etapa de configuración (setup), se establece la comunicación serial, se inicializa la pantalla OLED mostrando un mensaje de inicio, y se configura el módulo HX711 realizando una tara inicial que permite establecer un punto de referencia sin carga. Además, el botón de tara se configura con resistencia interna tipo INPUT_PULLUP, lo que garantiza una lectura estable.
+
+En el ciclo principal del programa (loop), el sistema ejecuta continuamente la lectura del peso y su procesamiento, una vez el usuario presiona el pulsador, se activa nuevamente la función de tara del HX711, reiniciando el valor de referencia y mostrando un mensaje en la pantalla que confirma la acción. Para evitar múltiples activaciones por rebote, se utiliza una variable de control que limita la ejecución de la tara a una sola vez por pulsación.
+
+La lectura del peso se realiza mediante el módulo HX711, utilizando un promedio de varias muestras para mejorar la estabilidad de la medición. Posteriormente, se aplica un factor de calibración que permite convertir la señal digital en unidades de masa. Para reducir el ruido y las fluctuaciones en la señal, se implementa un filtro digital de tipo exponencial, el cual suaviza los cambios y proporciona una lectura más estable, aunque con una leve demora en la respuesta.
+
+El valor del peso es mostrado en tiempo real en la pantalla OLED, junto con un encabezado identificador del sistema. La actualización constante de la pantalla permite al usuario monitorear de manera clara y continua las mediciones obtenidas.
+
+### Programación del sistema de control de temperatura
+
+
 
 
 
