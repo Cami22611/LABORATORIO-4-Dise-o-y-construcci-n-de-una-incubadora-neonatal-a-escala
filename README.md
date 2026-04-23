@@ -56,4 +56,18 @@ Por otra parte, la temperatura medida es visualizada en tiempo real mediante una
 
 En conjunto, este sistema representa una implementación de control en lazo cerrado, en la cual la medición constante de la temperatura permite accionar automáticamente los elementos de calefacción y ventilación, garantizando condiciones estables y seguras para el entorno simulado del neonato.
 
+### 3. Modelo de incubadora neonatal a escala
+
+La estructura externa de la incubadora neonatal a escala fue diseñada con el propósito de proporcionar un entorno térmicamente aislado, funcional y de fácil acceso para la manipulación del sistema interno. Para su construcción se utilizó icopor como material principal, complementado con una superficie plástica transparente en la parte visible.
+
+El uso de icopor presenta varias ventajas importantes en este tipo de aplicaciones. En primer lugar, es un material con excelentes propiedades de aislamiento térmico, lo que permite reducir la pérdida de calor hacia el exterior y mejorar la eficiencia del sistema de calefacción. Además, es liviano, económico y fácil de trabajar, lo que facilita su corte, ensamblaje y adaptación a las dimensiones requeridas del prototipo.
+
+Por otro lado, la incorporación de un plástico transparente en la parte superior y los laterales de la incubadora permite la visualización del interior sin necesidad de abrir la estructura, fundamental para el monitoreo del estado del sistema.
+
+En cuanto al acceso, se diseñaron dos orificios circulares en la parte frontal, los cuales permiten la manipulación del interior de la incubadora, simulando los accesos presentes en equipos reales, los cuales facilitan la interacción con el neonato o los sensores sin comprometer significativamente las condiciones internas del sistema. Adicionalmente, la incubadora cuenta con un mecanismo de apertura lateral, lo que permite acceder completamente al interior cuando se requiere realizar ajustes, mantenimiento o instalación de los componentes electrónicos.
+
+Las dimensiones del prototipo fueron de aproximadamente 40 cm × 20 cm × 22 cm, lo que permite un tamaño compacto adecuado para la implementación a escala, manteniendo al mismo tiempo el espacio suficiente para integrar todos los subsistemas desarrollados control de temperatura, medición de peso y su posterior visualización.
+
+Es importante destacar que la base de la incubadora también fue construida en icopor, lo cual inicialmente facilitó la fabricación; sin embargo, durante las pruebas se evidenció que este material no soporta adecuadamente cargas mayores, presentando deformaciones que afectan la estabilidad del sistema de medición de peso. Por esta razón, se concluye que, para mejorar el desempeño estructural del prototipo, la base debería fabricarse con un material más rígido, como madera, acrílico o algún polímero de mayor resistencia, que garantice una mejor distribución de la carga y mayor precisión en las mediciones.
+
 
