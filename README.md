@@ -203,6 +203,21 @@ El valor del peso es mostrado en tiempo real en la pantalla OLED, junto con un e
 | Protoboard                         | 1        | 10000                | 10000             |
 | TOTAL                              | -        | -                    | 146.600           |
 
+## Comparación de soluciones comerciales ofrecidas a proveedores
+
+| Característica | Prototipo desarrollado | Dräger             | Instrumentalia S.A.S. | LEEX Medical       |
+| -------------- | ---------------------- | ------------------ | --------------------- | ------------------ |
+| Costo          | 146.600 COP            | 40–60 millones COP | 20–40 millones COP    | 25–50 millones COP |
+| Uso            | Académico              | Clínico            | Clínico               | Clínico            |
+| Control        | ON/OFF                 | PID avanzado       | PID / automático      | Automático         |
+| Sensores       | Básicos                | Alta precisión     | Alta precisión        | Alta precisión     |
+| Seguridad      | Baja                   | Muy alta           | Alta                  | Alta               |
+| Certificación  | No                     | Sí                 | Sí                    | Sí                 |
+
+El sistema desarrollado presenta un costo significativamente inferior en comparación con las incubadoras neonatales comerciales ofrecidas por empresas como Dräger, Instrumentalia S.A.S. y LEEX Medical. Esta diferencia se debe principalmente a que dichos equipos están diseñados para uso clínico y cumplen con estrictas normativas de seguridad, incorporando sensores de alta precisión, sistemas de control avanzados y múltiples mecanismos de protección para el paciente.
+
+En contraste, el prototipo desarrollado tiene un enfoque académico, permitiendo simular el funcionamiento básico de una incubadora neonatal mediante el control de temperatura y la medición de peso. No obstante, presenta limitaciones importantes, como el uso de un control ON/OFF en lugar de sistemas más sofisticados, menor precisión en los sensores y una estructura mecánica menos robusta, especialmente en la base construida en icopor.
+
 
 
 
