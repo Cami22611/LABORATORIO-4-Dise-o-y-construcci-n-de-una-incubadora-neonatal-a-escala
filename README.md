@@ -44,6 +44,10 @@ El circuito de control de la incubadora neonatal a escala fue implementado alred
 El termistor NTC se encuentra conectado en una configuración de divisor de voltaje junto con una resistencia fija. Gracias a esta disposición, la variación de resistencia del termistor frente a los cambios de temperatura se transforma en una variación de voltaje que puede ser leída por una de las entradas analógicas del ESP32. De esta manera, el microcontrolador obtiene de forma continua una representación eléctrica de la temperatura interna de la incubadora.
 Una vez adquirida la señal, el ESP32 ejecuta la lógica de control programada. Si la temperatura medida se encuentra por debajo del valor de referencia, el microcontrolador activa, mediante una salida digital, el módulo relé correspondiente al bombillo, el cual actúa como elemento calefactor. Al cerrarse el contacto del relé, se permite el paso de corriente hacia el bombillo y este comienza a generar calor dentro del recinto.
 
+ La siguiente imagen muestra como se debe implementar el divisor de tensión para obtenerla información del NTC de 10k
+ 
+<img width="765" height="377" alt="Screenshot_20260423-192523" src="https://github.com/user-attachments/assets/33ba3187-3d8b-441a-bf71-cf067c5536d5" />
+
 Por el contrario, cuando la temperatura supera el rango deseado, el ESP32 desactiva el calentamiento y activa el segundo módulo relé, conectado al ventilador. En este caso, el ventilador favorece la circulación de aire y ayuda a disminuir la temperatura interna, evitando el sobrecalentamiento del sistema. Así, los dos actuadores trabajan de forma alternada según la condición térmica detectada.
 
 Adicionalmente, el circuito incluye una pantalla OLED, conectada al ESP32 mediante comunicación I2C, la cual permite mostrar en tiempo real la temperatura medida por el sensor. Esta visualización facilita el monitoreo continuo del sistema y permite verificar de forma inmediata la respuesta del control implementado.
