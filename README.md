@@ -218,6 +218,14 @@ El sistema desarrollado presenta un costo significativamente inferior en compara
 
 En contraste, el prototipo desarrollado tiene un enfoque académico, permitiendo simular el funcionamiento básico de una incubadora neonatal mediante el control de temperatura y la medición de peso. No obstante, presenta limitaciones importantes, como el uso de un control ON/OFF en lugar de sistemas más sofisticados, menor precisión en los sensores y una estructura mecánica menos robusta, especialmente en la base construida en icopor.
 
+# ANÁLISIS DE RESULTADOS
+## Análisis 1: Evaluación del sistema de temperatura y medición de peso
+
+El sistema de control de temperatura implementado demostró un funcionamiento adecuado en términos generales. Se evidenció que el bombillo utilizado como elemento calefactor logró incrementar la temperatura dentro de la cabina, y que este se apagaba correctamente al alcanzar el valor deseado, lo que confirma el correcto funcionamiento del control tipo ON/OFF. De igual manera, los LEDs indicadores respondieron de manera adecuada, permitiendo identificar si la temperatura se encontraba por debajo, dentro o por encima del rango establecido, igualmente a pantalla OLED mostró correctamente la temperatura en tiempo real, y el termistor NTC proporcionó lecturas coherentes, lo que indica un correcto funcionamiento del sistema de sensado y visualización.
+
+No obstante, se presentó una dificultad en el sistema de ventilación. Aunque el módulo relé correspondiente al ventilador sí se activaba, el ventilador no encendía, lo cual indica que el problema no se encontraba en la lógica de control ni en la señal enviada por el microcontrolador, sino en la conexión eléctrica o el propio dispositivo. A pesar de esta limitación, el sistema logró mantener la temperatura dentro de rangos adecuados mediante el control del elemento calefactor.
+
+En cuanto al sistema de medición de peso, los resultados no fueron satisfactorios. Al utilizar un patrón de peso conocido de 3 kg aproximadamente, se observaron valores significativamente alejados del valor real. Inicialmente, la medición presentaba un error menor, pero con el tiempo las lecturas se desviaron considerablemente, lo que indica problemas de estabilidad y precisión en el sistema. Este comportamiento puede atribuirse a varios factores, como una calibración inadecuada del sensor, la utilización de una sola celda de carga,la falta de rigidez en la base construida en icopor, la cual se deformó en medio de la medición y afectó la carga.
 
 
 
