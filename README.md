@@ -227,6 +227,15 @@ No obstante, se presentó una dificultad en el sistema de ventilación. Aunque e
 
 En cuanto al sistema de medición de peso, los resultados no fueron satisfactorios. Al utilizar un patrón de peso conocido de 3 kg aproximadamente, se observaron valores significativamente alejados del valor real. Inicialmente, la medición presentaba un error menor, pero con el tiempo las lecturas se desviaron considerablemente, lo que indica problemas de estabilidad y precisión en el sistema. Este comportamiento puede atribuirse a varios factores, como una calibración inadecuada del sensor, la utilización de una sola celda de carga,la falta de rigidez en la base construida en icopor, la cual se deformó en medio de la medición y afectó la carga.
 
+## Análisis 2: Comparación con sistemas comerciales
+
+Al comparar el sistema desarrollado con incubadoras neonatales comerciales ofrecidas por empresas como Dräger, Instrumentalia S.A.S. y LEEX Medical, se evidencian diferencias significativas en términos de capacidades, limitaciones y costo.
+
+En cuanto a las capacidades, los sistemas comerciales cuentan con controladores avanzados que permiten mantener condiciones extremadamente precisas de temperatura, humedad y oxígeno, además de incorporar múltiples sensores de grado clínico. Por el contrario, el prototipo desarrollado implementa un control básico tipo ON/OFF, limitado únicamente a la regulación de temperatura y medición de peso, lo que reduce su precisión y funcionalidad.
+
+Respecto a las limitaciones, el sistema desarrollado presenta la falta de precisión en la medición de peso, la dependencia de materiales poco rígidos como el icopor, y fallas en la integración de algunos componentes como el ventilador. En cambio, los equipos comerciales están diseñados bajo estándares médicos estrictos, con sistemas de seguridad, alarmas confiables y estructuras mecánicas robustas que garantizan estabilidad y precisión.
+
+En términos de costo, el prototipo presenta una ventaja significativa, ya que su valor es considerablemente bajo en comparación con los sistemas comerciales, los cuales tienen costos elevados debido a su tecnología, certificaciones y nivel de seguridad requerido para uso clínico.
 
 
 
