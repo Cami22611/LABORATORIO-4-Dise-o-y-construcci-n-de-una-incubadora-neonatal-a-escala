@@ -8,7 +8,7 @@ Además, esta práctica permite analizar la importancia del monitoreo continuo y
 
 ## FUNDAMENTOS TEÓRICOS
 
-Lass incubadoras neonatales son dispositivos biomédicos diseñados para proporcionar un entorno controlado que garantice condiciones óptimas para el desarrollo de recién nacidos, especialmente prematuros. Su funcionamiento se basa en la regulación de variables fisiológicas y ambientales como la temperatura, la humedad, el flujo de aire y, en algunos casos, la concentración de oxígeno.
+Las incubadoras neonatales son dispositivos biomédicos diseñados para proporcionar un entorno controlado que garantice condiciones óptimas para el desarrollo de recién nacidos, especialmente prematuros. Su funcionamiento se basa en la regulación de variables fisiológicas y ambientales como la temperatura, la humedad, el flujo de aire y, en algunos casos, la concentración de oxígeno.
 
 Desde el punto de vista físico, el principio de operación de una incubadora se fundamenta en la transferencia de calor por convección. El sistema utiliza un ventilador que hace circular el aire a través de un elemento calefactor, elevando su temperatura antes de introducirlo en el compartimiento del bebé, permitiendo así mantener una temperatura interna estable, típicamente en un rango cercano a los 36 °C – 37,5 °C, que es adecuado para la termorregulación del neonato.
 
@@ -39,22 +39,24 @@ Por último, la información suministrada es visualizada mediante una pantalla O
 
 ### 2. Diseño del circuito de control de temperatura
 
-El sistema de control de temperatura de la incubadora neonatal a escala fue diseñado con el objetivo de mantener un ambiente térmico estable dentro del rango requerido para el cuidado del neonato. Para ello, se implementó un sistema basado en un termistor NTC, un elemento calefactor (bombillo), un ventilador y dos módulos relé que permiten la activación de los actuadores.
+El circuito de control de la incubadora neonatal a escala fue implementado alrededor de un microcontrolador ESP32, encargado de adquirir la señal del sensor de temperatura, procesarla y gobernar los elementos de actuación y visualización del sistema.
 
-El termistor NTC es el sensor encargado de medir la temperatura interna, su funcionamiento se basa en la variación de su resistencia eléctrica en función de la temperatura: a medida que la temperatura aumenta, su resistencia disminuye. Esta variación se convierte en una señal de voltaje mediante un divisor resistivo, permitiendo que el microcontrolador adquiera y procese la información.
+El termistor NTC se encuentra conectado en una configuración de divisor de voltaje junto con una resistencia fija. Gracias a esta disposición, la variación de resistencia del termistor frente a los cambios de temperatura se transforma en una variación de voltaje que puede ser leída por una de las entradas analógicas del ESP32. De esta manera, el microcontrolador obtiene de forma continua una representación eléctrica de la temperatura interna de la incubadora.
+Una vez adquirida la señal, el ESP32 ejecuta la lógica de control programada. Si la temperatura medida se encuentra por debajo del valor de referencia, el microcontrolador activa, mediante una salida digital, el módulo relé correspondiente al bombillo, el cual actúa como elemento calefactor. Al cerrarse el contacto del relé, se permite el paso de corriente hacia el bombillo y este comienza a generar calor dentro del recinto.
 
-Con base en la lectura del sensor, el sistema determina el estado térmico de la incubadora y actúa en consecuencia mediante un control tipo ON/OFF. El bombillo actúa como elemento calefactor, activándose cuando la temperatura se encuentra por debajo del rango establecido. Por su parte, el ventilador, controlado mediante un segundo relé, permite la circulación del aire y contribuye a disipar el calor cuando la temperatura es elevada.
+Por el contrario, cuando la temperatura supera el rango deseado, el ESP32 desactiva el calentamiento y activa el segundo módulo relé, conectado al ventilador. En este caso, el ventilador favorece la circulación de aire y ayuda a disminuir la temperatura interna, evitando el sobrecalentamiento del sistema. Así, los dos actuadores trabajan de forma alternada según la condición térmica detectada.
 
-Adicionalmente, el sistema incorpora un conjunto de dos LEDs indicadores, los cuales permiten identificar de manera visual el estado de la temperatura:
+Adicionalmente, el circuito incluye una pantalla OLED, conectada al ESP32 mediante comunicación I2C, la cual permite mostrar en tiempo real la temperatura medida por el sensor. Esta visualización facilita el monitoreo continuo del sistema y permite verificar de forma inmediata la respuesta del control implementado.
 
-- El LED verde indica que la temperatura se encuentra dentro del rango adecuado.
-- El LED rojo se activa cuando la temperatura se encuentra fuera del rango.
+También se integraron dos diodos LED como indicadores visuales de estado. El LED verde se enciende cuando la temperatura se encuentra dentro del intervalo adecuado de funcionamiento, mientras que el LED rojo se activa cuando la temperatura está fuera del rango establecido. Estos indicadores se conectan a salidas digitales del ESP32 y operan con sus respectivas resistencias limitadoras de corriente para proteger los componentes.
 
-Este sistema de señalización facilita una interpretación rápida del estado térmico sin necesidad de observar continuamente los valores numéricos.
-
-Por otra parte, la temperatura medida es visualizada en tiempo real mediante una pantalla OLED, donde se muestra el valor actual de manera clara y continua, mejorando la interacción con el sistema, permitiendo un monitoreo preciso del comportamiento térmico dentro de la incubadora.
+En cuanto a la alimentación, el circuito combina la etapa de control electrónico con la etapa de potencia. El ESP32 alimenta y controla las señales lógicas del sistema, mientras que los relés permiten aislar eléctricamente al microcontrolador de las cargas de mayor consumo, como el bombillo y el ventilador. Esta configuración mejora la seguridad del circuito y evita que corrientes elevadas afecten directamente al sistema de procesamiento. 
 
 En conjunto, este sistema representa una implementación de control en lazo cerrado, en la cual la medición constante de la temperatura permite accionar automáticamente los elementos de calefacción y ventilación, garantizando condiciones estables y seguras para el entorno simulado del neonato.
+
+A continuación se muestra el circuito sistema diseñado para realizaar el control de la incubadora:
+
+<img width="1577" height="1162" alt="Screenshot_20260423-192207" src="https://github.com/user-attachments/assets/dd43a1c7-6040-4a26-a114-4e399415f2a8" />
 
 ### 3. Modelo de incubadora neonatal a escala
 
