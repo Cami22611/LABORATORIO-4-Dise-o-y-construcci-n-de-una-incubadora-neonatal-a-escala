@@ -36,6 +36,8 @@ En esta implementación se utilizó una única celda de carga, lo que simplifica
 Adicionalmente, el sistema incorpora un pulsador para la función de tara, el cual permite establecer un punto de referencia inicial, el cual es fundamental para eliminar el peso de la estructura o base sobre la que se encuentra la galga, garantizando que la medición corresponda únicamente al objeto de interés. Al activarse, el sistema ajusta las lecturas posteriores con respecto a este valor de referencia.
 
 Por último, la información suministrada es visualizada mediante una pantalla OLED, donde se muestra el peso en tiempo real de forma clara y continua, permitiendo al usuario monitorear fácilmente las mediciones obtenidas.
+<img width="1089" height="635" alt="WhatsApp Image 2026-04-23 at 8 01 29 PM" src="https://github.com/user-attachments/assets/5027205e-df1f-4450-ad98-564f23ca074b" />
+
 
 ### 2. Diseño del circuito de control de temperatura
 
@@ -363,13 +365,14 @@ Con base en esa medición, el programa ejecuta un control ON/OFF sobre dos actua
 | Relé                               | 2        | 8.000                | 16.000            |
 | Ventilador                         | 1        | 7.000                | 7.000             |
 | Bombillo                           | 1        | 5.000                | 5.000             |
+| Extensión                          | 1        | 5.800                | 5.800             |
 | LEDs                               | 3        | 500                  | 1.500             |
 | Metro cable UTP                    | 1        | 500                  | 500               |
 | Icopor                             | 1        | 15000                | 15000             |
 | Balso                              | 1        | 1600                 | 1600              |
 | Plástico                           | 1        | 15000                | 15000             |
 | Protoboard                         | 1        | 10000                | 10000             |
-| TOTAL                              | -        | -                    | 146.600           |
+| TOTAL                              | -        | -                    | 152.400           |
 
 ## Comparación de soluciones comerciales ofrecidas a proveedores
 
@@ -405,5 +408,15 @@ Respecto a las limitaciones, el sistema desarrollado presenta la falta de precis
 
 En términos de costo, el prototipo presenta una ventaja significativa, ya que su valor es considerablemente bajo en comparación con los sistemas comerciales, los cuales tienen costos elevados debido a su tecnología, certificaciones y nivel de seguridad requerido para uso clínico.
 
+# CONCLUSIONES
+# PREGUNTAS
+## Pregunta 1: ¿Qué otras variables (y por qué) además de las aquí mencionadas son críticas en el monitoreo neonatal?
+Además de la temperatura y el peso, existen otras variables fundamentales en el monitoreo neonatal debido a su impacto directo en la estabilidad del recién nacido. La humedad es importante porque ayuda a prevenir la deshidratación y protege la piel, especialmente en neonatos prematuros que pierden líquidos con mayor facilidad. La concentración de oxígeno también juega un papel esencial, ya que niveles inadecuados pueden afectar el proceso respiratorio y generar complicaciones. Por su parte, la frecuencia cardíaca permite evaluar el funcionamiento del sistema cardiovascular y detectar alteraciones, mientras que la frecuencia respiratoria refleja el estado del sistema pulmonar y posibles dificultades para respirar. Finalmente, la saturación de oxígeno en sangre indica qué tan eficiente es la oxigenación del organismo.
+## Pregunta 2: ¿Qué haría falta para convertir el sistema desarrollado en una incubadora neonatal real?
+Para convertir el sistema desarrollado en una incubadora neonatal real sería necesario implementar múltiples mejoras. En primer lugar, se requeriría el uso de sensores de grado clínico con alta precisión y confiabilidad, también sería necesario incorporar un sistema de control más avanzado, como un controlador PID, que permita una regulación más precisa de la temperatura. Adicionalmente, se deben incluir sistemas de seguridad redundantes, alarmas confiables y monitoreo continuo de múltiples variables (humedad, oxígeno, signos vitales). Desde el punto de vista estructural, se necesitarían materiales resistentes, higiénicos y certificados, por último el sistema debería cumplir con normativas y certificaciones médicas, lo cual implica procesos rigurosos de validación y pruebas.
+## Pregunta 3: ¿Qué semejanzas hay entre una incubadora neonatal y unaservo-cuna?
+La incubadora neonatal y la servo-cuna comparten múltiples características, ya que ambas están diseñadas para mantener condiciones térmicas adecuadas que garanticen la estabilidad del neonato. En ambos dispositivos se emplean sensores de temperatura que permiten monitorear continuamente el estado del paciente, información que es utilizada por un sistema de control automático para regular la fuente de calor. Ambos dispositivos pueden operar como sistemas de control en lazo cerrado, ya que utilizan sensores de temperatura para retroalimentar el sistema y ajustar la fuente de calor en función de una referencia establecida.
+
+Asimismo, ambos equipos cuentan con sistemas de visualización e indicadores que facilitan el monitoreo, así como alarmas que alertan cuando las condiciones se salen de los rangos establecidos. Aunque presentan diferencias en su funcionamiento, ya que la incubadora es un sistema cerrado que regula la temperatura del aire mediante convección, mientras que la servo-cuna es un sistema abierto en el cual el calor se transmite principalmente por radiación, ambos comparten el mismo objetivo de proporcionar un entorno térmico controlado.
 
 
