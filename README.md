@@ -78,6 +78,9 @@ Las dimensiones del prototipo fueron de aproximadamente 40 cm × 20 cm × 22 cm,
 
 Es importante destacar que la base de la incubadora también fue construida en icopor, lo cual inicialmente facilitó la fabricación; sin embargo, durante las pruebas se evidenció que este material no soporta adecuadamente cargas mayores, presentando deformaciones que afectan la estabilidad del sistema de medición de peso. Por esta razón, se concluye que, para mejorar el desempeño estructural del prototipo, la base debería fabricarse con un material más rígido, como madera, acrílico o algún polímero de mayor resistencia, que garantice una mejor distribución de la carga y mayor precisión en las mediciones.
 
+<img width="978" height="838" alt="WhatsApp Image 2026-04-23 at 6 20 17 PM" src="https://github.com/user-attachments/assets/22e376d5-bcc1-440d-b686-4da99b819587" />
+
+
 ## IMPLEMENTACIÓN DEL SISTEMA
 
 ### Programación del sistema de medición de peso
@@ -189,6 +192,7 @@ En el ciclo principal del programa (loop), el sistema ejecuta continuamente la l
 La lectura del peso se realiza mediante el módulo HX711, utilizando un promedio de varias muestras para mejorar la estabilidad de la medición. Posteriormente, se aplica un factor de calibración que permite convertir la señal digital en unidades de masa. Para reducir el ruido y las fluctuaciones en la señal, se implementa un filtro digital de tipo exponencial, el cual suaviza los cambios y proporciona una lectura más estable, aunque con una leve demora en la respuesta.
 
 El valor del peso es mostrado en tiempo real en la pantalla OLED, junto con un encabezado identificador del sistema. La actualización constante de la pantalla permite al usuario monitorear de manera clara y continua las mediciones obtenidas.
+
 
 ### Programación del sistema de control de temperatura
 
@@ -409,6 +413,12 @@ Respecto a las limitaciones, el sistema desarrollado presenta la falta de precis
 En términos de costo, el prototipo presenta una ventaja significativa, ya que su valor es considerablemente bajo en comparación con los sistemas comerciales, los cuales tienen costos elevados debido a su tecnología, certificaciones y nivel de seguridad requerido para uso clínico.
 
 # CONCLUSIONES
+A partir del desarrollo de la práctica, se evidenció que es posible implementar un sistema funcional que simule el comportamiento básico de una incubadora neonatal, integrando sensores, actuadores y sistemas de visualización. El sistema de control de temperatura presentó un desempeño adecuado, logrando mantener la variable dentro de un rango deseado mediante un control tipo ON/OFF, evidenciando que, para aplicaciones básicas, este tipo de control puede ser suficiente.
+
+Sin embargo, también se identificaron limitaciones importantes, aunque el sistema térmico funcionó correctamente en términos generales, la falla en el encendido del ventilador evidenció la importancia de una correcta integración eléctrica y verificación de los actuadores. Por otro lado, el sistema de medición de peso no logró alcanzar la precisión esperada, mostrando desviaciones significativas frente a un valor de referencia conocido, lo que demuestra que variables como la estabilidad mecánica, la correcta calibración y la calidad de los sensores son determinantes para obtener mediciones confiables.
+
+En este sentido, se concluye que el control preciso de variables como la temperatura y el peso en sistemas biomédicos requiere no solo de un adecuado diseño electrónico, sino también de una correcta selección de materiales, una integración robusta de los componentes y el uso de algoritmos de control más avanzados. Aunque el sistema desarrollado cumple con fines académicos, no alcanza los niveles de precisión y seguridad necesarios para aplicaciones clínicas reales.
+
 # PREGUNTAS
 ## Pregunta 1: ¿Qué otras variables (y por qué) además de las aquí mencionadas son críticas en el monitoreo neonatal?
 Además de la temperatura y el peso, existen otras variables fundamentales en el monitoreo neonatal debido a su impacto directo en la estabilidad del recién nacido. La humedad es importante porque ayuda a prevenir la deshidratación y protege la piel, especialmente en neonatos prematuros que pierden líquidos con mayor facilidad. La concentración de oxígeno también juega un papel esencial, ya que niveles inadecuados pueden afectar el proceso respiratorio y generar complicaciones. Por su parte, la frecuencia cardíaca permite evaluar el funcionamiento del sistema cardiovascular y detectar alteraciones, mientras que la frecuencia respiratoria refleja el estado del sistema pulmonar y posibles dificultades para respirar. Finalmente, la saturación de oxígeno en sangre indica qué tan eficiente es la oxigenación del organismo.
@@ -418,5 +428,7 @@ Para convertir el sistema desarrollado en una incubadora neonatal real sería ne
 La incubadora neonatal y la servo-cuna comparten múltiples características, ya que ambas están diseñadas para mantener condiciones térmicas adecuadas que garanticen la estabilidad del neonato. En ambos dispositivos se emplean sensores de temperatura que permiten monitorear continuamente el estado del paciente, información que es utilizada por un sistema de control automático para regular la fuente de calor. Ambos dispositivos pueden operar como sistemas de control en lazo cerrado, ya que utilizan sensores de temperatura para retroalimentar el sistema y ajustar la fuente de calor en función de una referencia establecida.
 
 Asimismo, ambos equipos cuentan con sistemas de visualización e indicadores que facilitan el monitoreo, así como alarmas que alertan cuando las condiciones se salen de los rangos establecidos. Aunque presentan diferencias en su funcionamiento, ya que la incubadora es un sistema cerrado que regula la temperatura del aire mediante convección, mientras que la servo-cuna es un sistema abierto en el cual el calor se transmite principalmente por radiación, ambos comparten el mismo objetivo de proporcionar un entorno térmico controlado.
+
+# REFERENCIAS
 
 
