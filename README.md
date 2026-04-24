@@ -431,4 +431,21 @@ Asimismo, ambos equipos cuentan con sistemas de visualización e indicadores que
 
 # REFERENCIAS
 
+1. Tran, C. G. K., et al. Designing a low-cost multifunctional infant incubator.Journal of Laboratory Automation, 2014. https://doi.org/10.1177/2211068214530391  
+
+2. Restrepo-Pérez, L., et al.Prototipo de incubadora neonatal.Revista Ingeniería Biomédica, 2007. http://www.scielo.org.co/pdf/rinbi/v1n1/v1n1a12.pdf  
+
+3. Knobel-Dail, R. B.Role of effective thermoregulation in premature neonates. 2014. https://doi.org/10.2147/RRN.S52377  
+
+4. European Foundation for the Care of Newborn Infants (EFCNI). Temperature management in newborn infants.https://newborn-health-standards.org  
+
+5. Adafruit.SSD1306 OLED Displays. https://learn.adafruit.com/monochrome-oled-breakouts  
+
+6. SparkFun Electronics. HX711 Load Cell Amplifier.https://www.sparkfun.com/products/13879  
+
+7. Vishay Intertechnology.NTC Thermistors. https://www.vishay.com/en/thermistors/ntc/
+
+## INTEGRANTES DEL INFROME
+Isabel Sofía Maldonado Roa y María Camila Martínez Ramírez
+
 
