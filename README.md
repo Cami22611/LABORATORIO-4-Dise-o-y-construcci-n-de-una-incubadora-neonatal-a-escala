@@ -189,6 +189,168 @@ La lectura del peso se realiza mediante el módulo HX711, utilizando un promedio
 El valor del peso es mostrado en tiempo real en la pantalla OLED, junto con un encabezado identificador del sistema. La actualización constante de la pantalla permite al usuario monitorear de manera clara y continua las mediciones obtenidas.
 
 ### Programación del sistema de control de temperatura
+
+```bash
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <math.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET -1
+
+Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+// Pines
+const int pinTermistor = 34;
+const int foco = 25;
+const int ventilador = 26;
+const int ledRojo = 27;
+const int ledVerde = 14;
+
+// I2C OLED
+const int SDA_PIN = 21;
+const int SCL_PIN = 22;
+
+// Parámetros del termistor
+const float R_FIXED = 10000.0;     // Resistencia fija de 10k
+const float R_NOMINAL = 10000.0;   // Termistor 10k a 25°C
+const float T_NOMINAL = 25.0;      // Temperatura nominal
+const float BETA = 3950.0;         // Coeficiente Beta
+const int ADC_MAX = 4095;          
+
+float temperaturaC = 0.0;
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(foco, OUTPUT);
+  pinMode(ventilador, OUTPUT);
+  pinMode(ledRojo, OUTPUT);
+  pinMode(ledVerde, OUTPUT);
+
+  // Relé activo en LOW:
+  // LOW = encendido
+  // HIGH = apagado
+  digitalWrite(foco, HIGH);        // foco apagado
+  digitalWrite(ventilador, HIGH);  // ventilador apagado
+  digitalWrite(ledRojo, LOW);
+  digitalWrite(ledVerde, LOW);
+
+  Wire.begin(SDA_PIN, SCL_PIN);
+
+  analogReadResolution(12);
+  analogSetPinAttenuation(pinTermistor, ADC_11db);
+
+  if (!oled.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    while (true);
+  }
+
+  oled.clearDisplay();
+  oled.setTextColor(SSD1306_WHITE);
+  oled.setTextSize(1);
+  oled.setCursor(0, 0);
+  oled.println("Incubadora MaIs");
+  oled.setCursor(0, 20);
+  oled.println("Iniciando...");
+  oled.display();
+  delay(1500);
+}
+
+void loop() {
+  temperaturaC = leerTemperaturaTermistor();
+
+  Serial.print("Temperatura: ");
+  Serial.print(temperaturaC, 1);
+  Serial.println(" C");
+
+  mostrarTemperaturaOLED(temperaturaC);
+  controlarIndicadores(temperaturaC);
+  controlarActuadores(temperaturaC);
+
+  delay(1000);
+}
+
+float leerTemperaturaTermistor() {
+  long suma = 0;
+
+  for (int i = 0; i < 10; i++) {
+    suma += analogRead(pinTermistor);
+    delay(5);
+  }
+
+  int adcValue = suma / 10;
+
+  if (adcValue <= 0) adcValue = 1;
+  if (adcValue >= ADC_MAX) adcValue = ADC_MAX - 1;
+
+  
+  float resistencia = R_FIXED * ((ADC_MAX / (float)adcValue) - 1.0);
+
+  float steinhart;
+  steinhart = resistencia / R_NOMINAL;
+  steinhart = log(steinhart);
+  steinhart /= BETA;
+  steinhart += 1.0 / (T_NOMINAL + 273.15);
+  steinhart = 1.0 / steinhart;
+  steinhart -= 273.15;
+
+  return steinhart;
+}
+
+void mostrarTemperaturaOLED(float temp) {
+  oled.clearDisplay();
+  oled.setTextColor(SSD1306_WHITE);
+
+  oled.setTextSize(1);
+  oled.setCursor(0, 0);
+  oled.println("Incubadora MaIs");
+
+  oled.setCursor(0, 18);
+  oled.println("Temperatura:");
+
+  oled.setTextSize(2);
+  oled.setCursor(0, 35);
+  oled.print(temp, 1);
+  oled.print(" C");
+
+  oled.display();
+}
+
+void controlarIndicadores(float temp) {
+  if (temp >= 37.0 && temp <= 37.5) {
+    digitalWrite(ledVerde, HIGH);
+    digitalWrite(ledRojo, LOW);
+  } else {
+    digitalWrite(ledVerde, LOW);
+    digitalWrite(ledRojo, HIGH);
+  }
+}
+
+void controlarActuadores(float temp) {
+  if (temp < 37.0) {
+    // Hace frio: calentar
+    digitalWrite(foco, LOW);         // enciende foco
+    digitalWrite(ventilador, HIGH);  // apaga ventilador
+  }
+  else if (temp > 37.5) {
+    // Hace calor: enfriar
+    digitalWrite(foco, HIGH);        // apaga foco
+    digitalWrite(ventilador, LOW);   // enciende ventilador
+  }
+  else {
+    // Temperatura correcta
+    digitalWrite(foco, HIGH);        // apaga foco
+    digitalWrite(ventilador, HIGH);  // apaga ventilador
+  }
+}
+```
+
+por medio de este código se implementa un control térmico para la incubadora, se Realiza la lectura analógica de un termistor NTC, promediando varias muestras para reducir ruido y luego estas seconvierten a un valor en temperatura en grados Celsius mediante la ecuación Beta del sensor. La temperatura calculada se muestra en una pantalla OLED por comunicación I2C y también se envía al monitor serial para supervisión.
+
+Con base en esa medición, el programa ejecuta un control ON/OFF sobre dos actuadores: un foco como fuente de calentamiento y un ventilador como sistema de enfriamiento. Si la temperatura está por debajo del rango definido, activa el foco; si supera el límite superior, desactiva el foco y activa el ventilador; y si la temperatura se encuentra dentro del rango de operación, mantiene ambos apagados. Además, utiliza un LED verde para indicar condición normal y un LED rojo para señalar que la temperatura está fuera del rango establecido.
+
 # COSTOS DEL SISTEMA DESARROLLADO
 
 | Componente                         | Cantidad | Costo unitario (COP) | Costo total (COP) |
